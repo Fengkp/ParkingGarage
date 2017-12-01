@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e249a6c6-4a57-40a8-b77d-45a1918ecd46" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ParkingGarage.iml" afterPath="$PROJECT_DIR$/ParkingGarage.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/garage/Level.java" afterPath="$PROJECT_DIR$/src/garage/Level.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/garage/Lot.java" afterPath="$PROJECT_DIR$/src/garage/Lot.java" />
-    </list>
+    <list default="true" id="e249a6c6-4a57-40a8-b77d-45a1918ecd46" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -82,7 +73,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="580" />
     <option name="y" value="205" />
     <option name="width" value="1400" />
@@ -266,7 +257,7 @@
     <option name="totallyTimeSpent" value="1575000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="580" y="205" width="1400" height="1000" extended-state="0" />
+    <frame x="580" y="205" width="1400" height="1000" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
