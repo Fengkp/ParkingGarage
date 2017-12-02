@@ -11,6 +11,7 @@ public class Level {
 
     public Level() {
         this.spaces = new PriorityQueue<>(10, comparator);
+
     }
 
     public void addSpace(Space newSpace) {
