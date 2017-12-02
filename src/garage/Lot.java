@@ -11,18 +11,6 @@ public class Lot {
     private boolean isFull;
 
     public void addLevel() {
-        Level newLevel = new Level();
-        Level prevLevel = new Level();
-        this.currentLevel = newLevel;
 
-        if (levels.isEmpty()) {
-            newLevel.setDistanceToEntrance(0);
-            levels.addFirst(newLevel);
-        }
-
-        else {
-            levels.add(newLevel);
-            currentLevel.setDistanceToEntrance(prevLevel.getDistanceToEntrance() + 10);
-        }
     }
 }

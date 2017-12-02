@@ -1,14 +1,13 @@
 package garage;
 
 public class Space {
-    private int distanceToEntrance;
-    private boolean
+    private String id;
 
-    public void setDistanceToEntrance() {
-
+    public Space(String id) {
+        this.id = id;
     }
 
-    public int compareTo(Space other) {
-
+    public String getID() {
+        return this.id;
     }
 }
