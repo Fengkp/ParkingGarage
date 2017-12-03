@@ -8,6 +8,17 @@ public class Space {
     }
 
     public String getID() {
-        return this.id;
+        String spaceNum = id.toString();
+        return spaceNum;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return this.id.equals(o);
     }
 }

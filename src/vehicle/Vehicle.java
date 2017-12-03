@@ -14,4 +14,15 @@ public class Vehicle {
     public void setParked(boolean isParked) {
         this.isParked = isParked;
     }
+
+
+    @Override
+    public int hashCode() {
+        return this.licensePlate.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return this.licensePlate.equals(o);
+    }
 }

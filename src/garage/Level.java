@@ -1,29 +1,50 @@
 package garage;
 
-
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
 public class Level {
+    private String id;
+    private int numOfSpaces;
+    private boolean full;
     private PriorityQueue<Space> spaces;
-    Comparator<Space> comparator = new StringSumComparator();
+    private Comparator<Space> comparator = new StringSumComparator();
 
-    public Level() {
-        this.spaces = new PriorityQueue<>(10, comparator);
+    public Level(String id, int spaceCount) {
+        this.id = id;
+        this.full = false;
+        this.numOfSpaces = spaceCount;
+        this.spaces = new PriorityQueue<>(spaceCount, comparator);
+        this.initSpaces();
+    }
 
+    private void initSpaces() {
+        for(int i = 1; i <= numOfSpaces; i++) {
+            spaces.add(new Space(this.id + i));
+        }
     }
 
     public void addSpace(Space newSpace) {
-        this.spaces.offer(newSpace);
+        this.spaces.add(newSpace);
+        this.full = false;
     }
 
-    public void showQueue() {
+    public Space occupySpace() {
+        return this.spaces.poll();
+    }
+
+    public boolean isFull() {
+        if (this.spaces.isEmpty())
+            this.full = true;
+        return this.full;
+    }
+
+    public void traverseSpaces() {
         Iterator<Space> space = this.spaces.iterator();
 
         while(space.hasNext())
-            System.out.println(space.next().getID());
-
+            space.next();
     }
 }
 
