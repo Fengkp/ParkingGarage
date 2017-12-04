@@ -11,7 +11,7 @@ public class Lot {
     private final int NUM_OF_LEVELS = 5;
     private final int NUM_OF_SPACES_PER_LEVEL = 50;
 
-    private Map<Vehicle, Space> occupiedSpaces;
+    private Map<String, Space> occupiedSpaces;
     private LinkedList<Level> levels = new LinkedList<>();
     private Level currentLevel;
     private Space emptySpace;
@@ -38,12 +38,13 @@ public class Lot {
 
     public void parkVehicle(Vehicle newVehicle) {
         this.retrieveEmptySpace();
-        occupiedSpaces.put(newVehicle, emptySpace);
+        this.currentLevel.isFull();
+        this.occupiedSpaces.put(newVehicle.getLicensePlate(), emptySpace);
     }
 
     public void returnSpace(String key) {
-        if (occupiedSpaces.keySet().)
-            return;
+//        if (!occupiedSpaces.containsValue(key))
+//            return;
         Space spaceToReturn = occupiedSpaces.get(key);
         findLevel(spaceToReturn);
         occupiedSpaces.remove(key);

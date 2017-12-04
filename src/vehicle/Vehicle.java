@@ -15,6 +15,10 @@ public class Vehicle {
         this.isParked = isParked;
     }
 
+    public String getLicensePlate() {
+        return this.licensePlate;
+    }
+
 
     @Override
     public int hashCode() {

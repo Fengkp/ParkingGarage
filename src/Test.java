@@ -18,5 +18,6 @@ public class Test {
         System.out.println();
 
         lot1.returnSpace("44");
+        lot1.parkVehicle(new Vehicle("44"));
     }
 }
