@@ -41,19 +41,24 @@ public class Lot {
         occupiedSpaces.put(newVehicle, emptySpace);
     }
 
-    public void retrieveVehicle(String key) {
-        Space spaceToReturn = occupiedSpaces.get(key);
-        if (occupiedSpaces.get(key) == null)
+    public void returnSpace(String key) {
+        if (occupiedSpaces.keySet().)
             return;
-
+        Space spaceToReturn = occupiedSpaces.get(key);
         findLevel(spaceToReturn);
         occupiedSpaces.remove(key);
-
-
     }
 
     public void findLevel(Space space) {
-        
+        Iterator<Level> level = this.levels.iterator();
+        char levelID = space.getID().charAt(0);
+
+        while (level.hasNext()) {
+            this.currentLevel = level.next();
+            if (currentLevel.getID().charAt(0) == levelID)
+                break;
+        }
+        currentLevel.addSpace(space);
     }
 
     public void traverseLevels() {

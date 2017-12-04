@@ -19,6 +19,10 @@ public class Level {
         this.initSpaces();
     }
 
+    public String getID() {
+        return this.id;
+    }
+
     private void initSpaces() {
         for(int i = 1; i <= numOfSpaces; i++) {
             spaces.add(new Space(this.id + i));

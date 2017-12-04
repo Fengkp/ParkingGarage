@@ -17,6 +17,6 @@ public class Test {
         }
         System.out.println();
 
-
+        lot1.returnSpace("44");
     }
 }
