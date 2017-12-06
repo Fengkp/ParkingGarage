@@ -43,8 +43,6 @@ public class Lot {
     }
 
     public void returnSpace(String key) {
-//        if (!occupiedSpaces.containsValue(key))
-//            return;
         Space spaceToReturn = occupiedSpaces.get(key);
         findLevel(spaceToReturn);
         occupiedSpaces.remove(key);

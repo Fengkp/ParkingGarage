@@ -3,6 +3,11 @@ package system;
 import system.Invoice;
 
 public class Ticket extends Invoice {
+    private String customer;
+    private String licensePlate;
+    private String id;
+    private boolean isActive;
+
 
     public Ticket() {}
 
