@@ -2,40 +2,45 @@ package person;
 
 import vehicle.Vehicle;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Customer extends Person {
     private LinkedList<Vehicle> vehicles;
-    private Vehicle primaryVehicle;
     private Vehicle currentVehicle;
 
-    public Customer() {}
-
-    public Customer(String firstName, String lastName) {
+    public Customer(String firstName, String lastName, String licensePlate) {
         super.firstName = firstName;
         super.lastName = lastName;
+        this.vehicles = new LinkedList<>();
+        this.vehicles.add(new Vehicle(licensePlate));
+        this.currentVehicle = vehicles.getFirst();
     }
 
-    public void addVehicle(Vehicle newVehicle) {
-        if (vehicles.isEmpty())
-            vehicles.addFirst(newVehicle);
-        else
-            vehicles.add(newVehicle);
+    public String getFirstName() {
+        return super.firstName;
+    }
+
+    public String getLastName() {
+        return super.lastName;
+    }
+
+    public Vehicle getCurrentVehicle() {
+        return this.currentVehicle;
+    }
+
+    public void addVehicle(String licensePlate) {
+        vehicles.add(new Vehicle(licensePlate));
     }
 
     public boolean findVehicle(String key) {
-        return false;
-    }
-
-    public void removeVehicle(String key) {
-
-    }
-
-    public boolean setPrimaryVehicle(String key) {
-        if (findVehicle(key)) {
-            this.primaryVehicle = this.currentVehicle;
-            return true;
+        Iterator<Vehicle> vehicle = this.vehicles.iterator();
+        while(vehicle.hasNext()) {
+            this.currentVehicle = vehicle.next();
+            if (this.currentVehicle.getLicensePlate().equals(key))
+                return true;
         }
         return false;
     }
+
 }
