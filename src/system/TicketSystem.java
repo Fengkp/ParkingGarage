@@ -13,11 +13,12 @@ public class TicketSystem {
     private String currentTicketNum;
     private Lot mainLot;
 
+
     public TicketSystem() {
         this.openTickets = new HashMap<>();
         this.closedTickets = new Stack<>();
         this.currentTicketNum = "0000";
-        this.mainLot = new Lot();
+        this.mainLot = Lot.getInstance();
     }
 
     public void openTicket(String firstName, String lastName, String licensePlate) {

@@ -7,7 +7,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class Lot {
+public final class Lot {
+    private static Lot mainLot = null;
     private final int NUM_OF_LEVELS = 5;
     private final int NUM_OF_SPACES_PER_LEVEL = 50;
 
@@ -16,9 +17,16 @@ public class Lot {
     private Level currentLevel;
     private Space currentSpace;
 
-    public Lot() {
+    private Lot() {
         occupiedSpaces = new HashMap<>();
         this.initLevels();
+    }
+
+    public static Lot getInstance() {
+        if (mainLot == null) {
+            mainLot = new Lot();
+        }
+        return mainLot;
     }
 
     private void initLevels() {
