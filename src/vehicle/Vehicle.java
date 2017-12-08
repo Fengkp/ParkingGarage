@@ -5,10 +5,8 @@ public class Vehicle {
     private String owner;
     private boolean isParked;
 
-    public Vehicle() {
-    }
-
-    public Vehicle(String licensePlate) {
+    public Vehicle(String firstName, String lastName, String licensePlate) {
+        this.owner = firstName + " " + lastName;
         this.licensePlate = licensePlate;
     }
 

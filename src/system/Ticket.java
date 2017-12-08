@@ -1,20 +1,19 @@
 package system;
 
 import person.Customer;
-import system.Invoice;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Ticket extends Invoice {
+public class Ticket {
     private Customer customer;
     private String id;
     private LocalDateTime arrivalTime;
     private LocalDateTime departureTime;
     private boolean isActive;
 
-    public Ticket(String firstName, String lastName, String licensePlate, String ticketNum) {
-        this.customer = new Customer(firstName, lastName, licensePlate);
+    public Ticket(Customer newCustomer, String ticketNum) {
+        this.customer = newCustomer;
         this.isActive = true;
         this.arrivalTime = LocalDateTime.now();
         this.generateID(ticketNum);
@@ -24,12 +23,17 @@ public class Ticket extends Invoice {
         return this.id;
     }
 
-    public void setActive(boolean newActive) {
-        super.isActive = newActive;
+    public Customer getCustomer() {
+        return this.customer;
+    }
+
+    public void setActive(boolean active) {
+        this.isActive = active;
     }
 
     public void setDeparture() {
         this.departureTime = LocalDateTime.now();
+        this.isActive = false;
     }
 
     private void generateID(String ticketNum) {

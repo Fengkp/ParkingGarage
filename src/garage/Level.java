@@ -43,13 +43,6 @@ public class Level {
             this.full = true;
         return this.full;
     }
-
-    public void traverseSpaces() {
-        Iterator<Space> space = this.spaces.iterator();
-
-        while(space.hasNext())
-            space.next();
-    }
 }
 
 class StringSumComparator implements Comparator<Space> {

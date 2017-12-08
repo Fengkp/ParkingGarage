@@ -14,7 +14,7 @@ public class Lot {
     private Map<String, Space> occupiedSpaces;
     private LinkedList<Level> levels = new LinkedList<>();
     private Level currentLevel;
-    private Space emptySpace;
+    private Space currentSpace;
 
     public Lot() {
         occupiedSpaces = new HashMap<>();
@@ -31,21 +31,19 @@ public class Lot {
         }
     }
 
-    public void retrieveEmptySpace() {
-        this.traverseLevels();
-        this.emptySpace = this.currentLevel.occupySpace();
-    }
-
-    public void parkVehicle(Vehicle newVehicle) {
+    public void closeSpace(Vehicle newVehicle) {
         this.retrieveEmptySpace();
         this.currentLevel.isFull();
-        this.occupiedSpaces.put(newVehicle.getLicensePlate(), emptySpace);
+        this.currentSpace.addVehicle(newVehicle);
+        this.currentSpace.setActive(true);
+        this.occupiedSpaces.put(newVehicle.getLicensePlate(), this.currentSpace);
     }
 
-    public void returnSpace(String key) {
-        Space spaceToReturn = occupiedSpaces.get(key);
-        findLevel(spaceToReturn);
-        occupiedSpaces.remove(key);
+    public void openSpace(String key) {
+        this.occupiedSpaces.get(key).removeVehicle();
+        this.occupiedSpaces.get(key).setActive(false);
+        findLevel(this.occupiedSpaces.get(key));
+        this.occupiedSpaces.remove(key);
     }
 
     public void findLevel(Space space) {
@@ -60,7 +58,7 @@ public class Lot {
         currentLevel.addSpace(space);
     }
 
-    public void traverseLevels() {
+    private void retrieveEmptySpace() {
         Iterator<Level> level = this.levels.iterator();
 
         while (level.hasNext()) {
@@ -68,6 +66,7 @@ public class Lot {
             if (!currentLevel.isFull())
                 break;
         }
+        this.currentSpace = this.currentLevel.occupySpace();
     }
 
     

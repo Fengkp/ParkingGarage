@@ -1,28 +1,19 @@
-import system.App;
+import system.TicketSystem;
 
 public class Test {
 
     public static void main(String[] args) {
-
-//        Lot lot1 = new Lot();
-//
-//        App.out.println();
-//
-//        Vehicle vehicle1 = new Vehicle("12AB34");
-//        lot1.parkVehicle(vehicle1);
-//        App.out.println();
-//        for (int i = 10; i < 100; i++) {
-//            lot1.parkVehicle(new Vehicle(Integer.toString(i)));
-//        }
-//        App.out.println();
-//
-//        lot1.returnSpace("44");
-//        lot1.parkVehicle(new Vehicle("44"));
-
-        App sys1 = new App();
+        TicketSystem sys1 = new TicketSystem();
         sys1.openTicket("Feng", "Parra", "HBX1-231");
-        sys1.openTicket("Bob", "Joe", "HBX1-232");
+        sys1.openTicket("Bob", "Parker", "HBX1-232");
+        sys1.openTicket("Joe", "Stalin", "HUX1-232");
+        sys1.openTicket("Greg", "Gold", "HCX1-232");
+        sys1.openTicket("Feng", "Parr", "HBX1-238");
+        sys1.openTicket("Chris", "Red", "HBX2-232");
+        sys1.openTicket("Jackie", "Chan", "HBX7-232");
+        sys1.openTicket("Chris", "Tucker", "HBX1-235");
 
+        sys1.closeTicket("000520171207");
         System.out.println();
 
 
