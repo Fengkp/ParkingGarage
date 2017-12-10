@@ -1,11 +1,8 @@
-package garage;
+package garage.model.garage;
 
-import vehicle.Vehicle;
+import garage.model.vehicle.Vehicle;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public final class Lot {
     private static Lot mainLot = null;
@@ -16,16 +13,19 @@ public final class Lot {
     private LinkedList<Level> levels = new LinkedList<>();
     private Level currentLevel;
     private Space currentSpace;
+    private int availableSpaces;
+    private boolean full;
 
     private Lot() {
         occupiedSpaces = new HashMap<>();
-        this.initLevels();
+        initLevels();
+        availableSpaces = NUM_OF_SPACES_PER_LEVEL * NUM_OF_LEVELS;
+        full = false;
     }
 
     public static Lot getInstance() {
-        if (mainLot == null) {
+        if (mainLot == null)
             mainLot = new Lot();
-        }
         return mainLot;
     }
 
@@ -40,41 +40,47 @@ public final class Lot {
     }
 
     public void closeSpace(Vehicle newVehicle) {
-        this.retrieveEmptySpace();
-        this.currentLevel.isFull();
-        this.currentSpace.addVehicle(newVehicle);
-        this.currentSpace.setActive(true);
-        this.occupiedSpaces.put(newVehicle.getLicensePlate(), this.currentSpace);
+        if (!isFull()) {
+            currentSpace = retrieveEmptySpace();
+            newVehicle.setSpaceNum(currentSpace.getID());
+            currentSpace.addVehicle(newVehicle);
+            currentSpace.setActive(true);
+            occupiedSpaces.put(newVehicle.getLicensePlate(), currentSpace);
+        }
     }
 
     public void openSpace(String key) {
-        this.occupiedSpaces.get(key).removeVehicle();
-        this.occupiedSpaces.get(key).setActive(false);
-        findLevel(this.occupiedSpaces.get(key));
-        this.occupiedSpaces.remove(key);
+        occupiedSpaces.get(key).removeVehicle();
+        occupiedSpaces.get(key).setActive(false);
+        returnSpace(occupiedSpaces.get(key));
+        occupiedSpaces.remove(key);
     }
 
-    public void findLevel(Space space) {
-        Iterator<Level> level = this.levels.iterator();
+    private void returnSpace(Space space) {
+        Iterator<Level> level = levels.iterator();
         char levelID = space.getID().charAt(0);
 
         while (level.hasNext()) {
-            this.currentLevel = level.next();
+            currentLevel = level.next();
             if (currentLevel.getID().charAt(0) == levelID)
                 break;
         }
         currentLevel.addSpace(space);
     }
 
-    private void retrieveEmptySpace() {
-        Iterator<Level> level = this.levels.iterator();
+    public boolean isFull() {
+        return full;
+    }
+
+    private Space retrieveEmptySpace() {
+        Iterator<Level> level = levels.iterator();
 
         while (level.hasNext()) {
             this.currentLevel = level.next();
             if (!currentLevel.isFull())
                 break;
         }
-        this.currentSpace = this.currentLevel.occupySpace();
+        return currentLevel.occupySpace();
     }
 
     

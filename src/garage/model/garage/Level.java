@@ -1,7 +1,6 @@
-package garage;
+package garage.model.garage;
 
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.PriorityQueue;
 
 public class Level {
@@ -13,25 +12,25 @@ public class Level {
 
     public Level(String id, int spaceCount) {
         this.id = id;
-        this.full = false;
-        this.numOfSpaces = spaceCount;
-        this.spaces = new PriorityQueue<>(spaceCount, comparator);
-        this.initSpaces();
+        full = false;
+        numOfSpaces = spaceCount;
+        spaces = new PriorityQueue<>(spaceCount, comparator);
+        initSpaces();
     }
 
     public String getID() {
-        return this.id;
+        return id;
     }
 
     private void initSpaces() {
         for(int i = 1; i <= numOfSpaces; i++) {
-            spaces.add(new Space(this.id + i));
+            spaces.add(new Space(id + i));
         }
     }
 
     public void addSpace(Space newSpace) {
-        this.spaces.add(newSpace);
-        this.full = false;
+        spaces.add(newSpace);
+        full = false;
     }
 
     public Space occupySpace() {
@@ -40,8 +39,8 @@ public class Level {
 
     public boolean isFull() {
         if (this.spaces.isEmpty())
-            this.full = true;
-        return this.full;
+            full = true;
+        return full;
     }
 }
 

@@ -1,4 +1,4 @@
-package system;
+package model.garage.system;
 
 import org.junit.Test;
 

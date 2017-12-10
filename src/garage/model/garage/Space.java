@@ -1,15 +1,19 @@
-package garage;
+package garage.model.garage;
 
-import vehicle.Vehicle;
+import garage.model.vehicle.Vehicle;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Space {
     private String id;
-    private boolean isActive;
+    private boolean active;
     private Vehicle currentVehicle;
 
     public Space(String id) {
         this.id = id;
-        this.isActive = false;
+        active = false;
     }
 
     public String getID() {
@@ -26,7 +30,7 @@ public class Space {
     }
 
     public void setActive(boolean active) {
-        this.isActive = active;
+        this.active = active;
     }
 
     @Override
