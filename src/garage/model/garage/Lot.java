@@ -2,9 +2,10 @@ package garage.model.garage;
 
 import garage.model.vehicle.Vehicle;
 
+import java.io.Serializable;
 import java.util.*;
 
-public final class Lot {
+public final class Lot implements Serializable {
     private static Lot mainLot = null;
     private final int NUM_OF_LEVELS = 5;
     private final int NUM_OF_SPACES_PER_LEVEL = 50;

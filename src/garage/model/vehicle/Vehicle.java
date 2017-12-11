@@ -1,6 +1,8 @@
 package garage.model.vehicle;
 
-public class Vehicle {
+import java.io.Serializable;
+
+public class Vehicle implements Serializable {
     private String licensePlate;
     private String owner;
     private String spaceNum;

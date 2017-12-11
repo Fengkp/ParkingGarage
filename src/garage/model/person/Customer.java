@@ -2,7 +2,9 @@ package garage.model.person;
 
 import garage.model.vehicle.Vehicle;
 
-public class Customer extends Person {
+import java.io.Serializable;
+
+public class Customer extends Person implements Serializable {
     private Vehicle vehicle;
 
     public Customer(String firstName, String lastName, String licensePlate) {

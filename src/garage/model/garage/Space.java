@@ -6,7 +6,9 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Space {
+import java.io.Serializable;
+
+public class Space implements Serializable {
     private String id;
     private boolean active;
     private Vehicle currentVehicle;

@@ -1,10 +1,13 @@
 package garage;
 
+import garage.model.TicketSystem;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.*;
 
 public class MainApp extends Application {
 
@@ -14,6 +17,7 @@ public class MainApp extends Application {
         primaryStage.setTitle("Parking Garage");
 
         Scene scene = new Scene(root);
+        TicketSystem.load();
         primaryStage.setScene(scene);
         primaryStage.show();
     }

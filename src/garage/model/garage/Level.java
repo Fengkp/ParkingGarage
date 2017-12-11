@@ -1,9 +1,10 @@
 package garage.model.garage;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-public class Level {
+public class Level implements Serializable {
     private String id;
     private int numOfSpaces;
     private boolean full;
@@ -44,7 +45,7 @@ public class Level {
     }
 }
 
-class StringSumComparator implements Comparator<Space> {
+class StringSumComparator implements Comparator<Space>, Serializable {
 
     @Override
     public int compare(Space o1, Space o2) {

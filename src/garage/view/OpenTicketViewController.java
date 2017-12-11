@@ -19,7 +19,7 @@ public class OpenTicketViewController extends UniversalComponents {
     private String lastName;
     private String licensePlate;
 
-    public void submitBtn(ActionEvent event) throws IOException {
+    public void submitBtn(ActionEvent event) throws IOException, ClassNotFoundException {
         if (firstNameText.getText().isEmpty()
                 || lastNameText.getText() .isEmpty() || licensePlateText.getText().isEmpty())
             super.errorBox("Missing Information", "Please fill in all the information.");
@@ -28,6 +28,7 @@ public class OpenTicketViewController extends UniversalComponents {
             lastName = lastNameText.getText();
             licensePlate = licensePlateText.getText();
             TicketSystem.getInstance().openTicket(firstName, lastName, licensePlate);
+            TicketSystem.save();
             super.goBackBtn(event);
         }
     }

@@ -3,9 +3,14 @@ package garage.view;
 import garage.model.ticket.Ticket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import garage.model.TicketSystem;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -35,8 +40,7 @@ public class CloseTicketViewController extends UniversalComponents {
             licensePlateLbl.setText(currentTicket.getLicensePlate());
             nameLbl.setText(currentTicket.getCustomer().getName());
             arrivalLbl.setText(currentTicket.getArrival());
-        }
-        else {
+        } else {
             ticketNumLbl.setText("Not Found.");
             spaceNumLbl.setText(null);
             licensePlateLbl.setText(null);
@@ -48,9 +52,14 @@ public class CloseTicketViewController extends UniversalComponents {
     public void closeTicketBtn(ActionEvent event) throws IOException {
         if (TicketSystem.getInstance().findTicket(ticketNum)) {
             TicketSystem.getInstance().closeTicket(ticketNum);
-            super.goBackBtn(event);
-        }
-        else
+            TicketSystem.save();
+
+            Parent paymentViewParent = FXMLLoader.load(getClass().getResource("PaymentView.fxml"));
+            Scene paymentViewScene = new Scene(paymentViewParent);
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            window.setScene(paymentViewScene);
+            window.show();
+        } else
             super.errorBox("Invalid Ticket Number", "Please enter a valid ticket number.");
     }
 
