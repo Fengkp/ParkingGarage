@@ -1,44 +1,53 @@
 package garage.model;
 
 import garage.model.garage.Lot;
+import garage.model.garage.Space;
 import garage.model.person.Customer;
 import garage.model.ticket.Ticket;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
 /**
- * The Ticket System class stores and handles the opening and closing of tickets.
- * There can only be one instance of a Ticket System object at any given point once instantiated.
+ * The TicketSystem class stores and handles the opening and closing of tickets.
+ * There can only be one instance of a TicketSystem object at any given point once instantiated.
  * The object can be accessed once imported using the getInstance() method.
  *
  * @author Feng Parra
- * @version 1.0 Dec. 11, 2017.
+ * @version 1.0 Dec. 17, 2017.
  */
 public final class TicketSystem implements Serializable {
     private static TicketSystem ticketSys = new TicketSystem();
     private static final long serialVersionUID = 152017L;
 
-    private Map<String, Ticket> openTickets;
+    private final double PRICE_PER_HOUR = 15.00;
+    private final double TAX_PERCENT = .18;
+
+    private Map<String, Ticket> openTicketsByTicketNum;
+    private Map<String, Ticket> openTicketsByLicensePlate;
+    private Map<String, Ticket> openTicketsByName;
     private Stack<Ticket> closedTickets;
     private String currentTicketNum;
     private Lot mainLot;
-    private final double PRICE_PER_HOUR = 15.00;
 
     /**
-     * Constructs and initializes the Ticket System class along with instantiating the Lot class.
+     * Constructs and initializes the TicketSystem class along with instantiating the Lot class.
+     * The class makes three separate maps to reference the ticket object with different keys.
      */
     private TicketSystem() {
-        openTickets = new HashMap<>();
+        openTicketsByTicketNum = new HashMap<>();
+        openTicketsByLicensePlate = new HashMap<>();
+        openTicketsByName = new HashMap<>();
         closedTickets = new Stack<>();
         currentTicketNum = "0000";
         mainLot = Lot.getInstance();
     }
 
     /**
-     * Returns the Ticket System object and allows for access across all other classes.
+     * Returns the TicketSystem object and allows for access across all other classes.
      * @return
      */
     public static TicketSystem getInstance() {
@@ -55,13 +64,16 @@ public final class TicketSystem implements Serializable {
      * @param firstName Customers first name.
      * @param lastName Customers last name.
      * @param licensePlate Vehicles license plate number associated with the customer.
+     * @param phoneNum Customers primary contact number.
      */
-    public void openTicket(String firstName, String lastName, String licensePlate) {
-        Customer newCustomer = new Customer(firstName, lastName, licensePlate);
+    public void openTicket(String firstName, String lastName, String licensePlate, String phoneNum) {
+        Customer newCustomer = new Customer(firstName, lastName, licensePlate, phoneNum);
         currentTicketNum = String.format("%0" + currentTicketNum.length() + "d", Integer.parseInt(currentTicketNum) + 1);
         mainLot.closeSpace(newCustomer.getVehicle());
         Ticket newTicket = new Ticket(newCustomer, currentTicketNum, newCustomer.getVehicle().getSpaceNum());
-        openTickets.put(newTicket.getId(), newTicket);
+        openTicketsByTicketNum.put(newTicket.getId(), newTicket);
+        openTicketsByLicensePlate.put(newTicket.getCustomer().getVehicle().getLicensePlate(), newTicket);
+        openTicketsByName.put(newTicket.getCustomer().getName(), newTicket);
     }
 
     /**
@@ -71,14 +83,29 @@ public final class TicketSystem implements Serializable {
      * @param key The ticket numbers ID.
      */
     public void closeTicket(String key) {
-        if (openTickets.containsKey(key)) {
-            openTickets.get(key).setDeparture();
-            openTickets.get(key).setActive(false);
-            openTickets.get(key).calculatePayment(PRICE_PER_HOUR);
-            openTickets.get(key).getCustomer().getVehicle().setParked(false);
-            closedTickets.push(openTickets.remove(key));
+        if (openTicketsByTicketNum.containsKey(key)) {
+            openTicketsByLicensePlate.remove(openTicketsByTicketNum.get(key).getLicensePlate());
+            openTicketsByName.remove(openTicketsByTicketNum.get(key).getCustomerName());
+            openTicketsByTicketNum.get(key).closeTicket();
+            closedTickets.push(openTicketsByTicketNum.remove(key));
             mainLot.openSpace(closedTickets.peek().getCustomer().getVehicle().getLicensePlate());
         }
+    }
+
+    /**
+     * Returns amount of available spaces.
+     * @return
+     */
+    public String getSpaceCount() {
+        return mainLot.getAvailableSpaces();
+    }
+
+    /**
+     * Finds the next available space.
+     * @return
+     */
+    public Space nextOpenSpace() {
+        return mainLot.nextOpenSpace();
     }
 
     /**
@@ -89,30 +116,61 @@ public final class TicketSystem implements Serializable {
         return closedTickets.peek();
     }
 
+    /**
+     * Returns the price per hour.
+     * @return
+     */
     public double getPRICE_PER_HOUR() {
         return PRICE_PER_HOUR;
     }
 
     /**
-     * Determines if the ticket exists within the openTickets Map.
-     * @param key The ticket numbers ID.
+     * Returns the tax percentage.
      * @return
      */
-    public boolean findTicket(String key) {
-        if (openTickets.containsKey(key))
-            return true;
-        return false;
+    public double getTAX_PERCENT() {
+        return TAX_PERCENT;
     }
 
     /**
      * Returns the ticket if found.
-     * @param key The ticket numbers ID.
+     * @param key The ticket number ID, license plate number or customer name.
      * @return
      */
     public Ticket getTicket(String key) {
-        if (findTicket(key))
-            return openTickets.get(key);
+        if (openTicketsByTicketNum.containsKey(key))
+            return openTicketsByTicketNum.get(key);
+        if (openTicketsByLicensePlate.containsKey(key))
+            return openTicketsByLicensePlate.get(key);
+        if (openTicketsByName.containsKey(key))
+            return openTicketsByName.get(key);
         return null;
+    }
+
+    /**
+     * Returns an observable list to be used for JavaFX table.
+     * @return
+     */
+    public ObservableList<Ticket> getOpenTickets() {
+        ObservableList<Ticket> tickets = FXCollections.observableArrayList();
+        tickets.addAll(openTicketsByTicketNum.values());
+
+        return tickets;
+    }
+
+    /**
+     * Find a ticket within one of the maps based on key given.
+     * @param key Could be ticket number ID, vehicle license plate number or the name of the customer.
+     * @return
+     */
+    public boolean findTicket(String key) {
+        if (openTicketsByTicketNum.containsKey(key))
+            return true;
+        if (openTicketsByLicensePlate.containsKey(key))
+            return true;
+        if (openTicketsByName.containsKey(key))
+            return true;
+        return false;
     }
 
     /**
@@ -120,7 +178,7 @@ public final class TicketSystem implements Serializable {
      */
     public static void save() {
         try {
-            FileOutputStream fileOutStream = new FileOutputStream("data" + File.separator + "data.ser");
+            FileOutputStream fileOutStream = new FileOutputStream("data/ticketsystem.ser");
             ObjectOutputStream objectOutStream = new ObjectOutputStream(fileOutStream);
             objectOutStream.writeObject(TicketSystem.ticketSys);
             objectOutStream.flush();
@@ -138,11 +196,11 @@ public final class TicketSystem implements Serializable {
      */
     public static void load() throws ClassNotFoundException {
         try {
-            File usersFile = new File("data" + File.separator + "data.ser");
+            File usersFile = new File("data/ticketsystem.ser");
             if (usersFile.length() == 0)
                 System.out.println("Creating New File...");
             else {
-                FileInputStream fileInStream = new FileInputStream("data" + File.separator + "data.ser");
+                FileInputStream fileInStream = new FileInputStream("data/ticketsystem.ser");
                 ObjectInputStream objectInStream = new ObjectInputStream(fileInStream);
                 TicketSystem.ticketSys = (TicketSystem) objectInStream.readObject();
                 objectInStream.close();

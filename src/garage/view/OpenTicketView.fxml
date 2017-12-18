@@ -2,82 +2,63 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="garage.view.OpenTicketViewController">
-   <children>
-      <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <VBox alignment="CENTER" prefHeight="398.0" prefWidth="296.0" BorderPane.alignment="CENTER">
+<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="garage.view.OpenTicketViewController">
+   <center>
+      <GridPane alignment="CENTER" hgap="20.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="84.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="452.0" minWidth="10.0" prefWidth="376.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField id="firstNameText" fx:id="firstNameText" maxWidth="150.0" prefWidth="1.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="lastNameText" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="licensePlateText" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" contentDisplay="BOTTOM" prefWidth="65.0" text="First Name:" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" contentDisplay="BOTTOM" text="Last Name:" GridPane.rowIndex="2" />
+            <Label alignment="CENTER" contentDisplay="BOTTOM" text="Plate Number:" GridPane.rowIndex="3" />
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="BOTTOM" text="FIRST NAME">
-                           <graphic>
-                              <TextField id="firstNameText" fx:id="firstNameText" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="BOTTOM" text="LAST NAME">
-                           <graphic>
-                              <TextField fx:id="lastNameText" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="BOTTOM" text="PLATE NUMBER">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <graphic>
-                              <TextField fx:id="licensePlateText" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                     <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#submitBtn" prefWidth="80.0" text="Submit" />
-                      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goBackBtn" prefWidth="80.0" text="Go Back" />
-                     </children>
-                  </HBox>
+                  <CheckBox mnemonicParsing="false" selected="true" text="Regular" />
+                  <CheckBox disable="true" mnemonicParsing="false" text="Handicapped" />
                </children>
+               <GridPane.margin>
+                  <Insets top="5.0" />
+               </GridPane.margin>
             </VBox>
-         </center>
-         <top>
-            <MenuBar BorderPane.alignment="CENTER">
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </top>
-      </BorderPane>
-   </children>
-</AnchorPane>
+            <Label text="Type:" GridPane.rowIndex="5" />
+            <Label text="Open Ticket Form" GridPane.columnIndex="1" />
+            <Label text="Phone Number:" GridPane.rowIndex="4" />
+            <TextField fx:id="phoneNumText" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="200.0" right="20.0" top="20.0" />
+         </padding>
+      </GridPane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#submitBtn" prefWidth="80.0" text="Submit" />
+          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goBackBtn" prefWidth="80.0" text="Go Back" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
