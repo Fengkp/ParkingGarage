@@ -20,13 +20,15 @@ public class SelectionsViewController extends UniversalController{
     }
 
     public void openTicketBtn(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("OpenTicketView.fxml"));
-        Scene openTicketScene = new Scene(root);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setTitle("Open Ticket");
-        window.setResizable(false);
-        window.setScene(openTicketScene);
-        window.show();
+        if (Integer.parseInt(TicketSystem.getInstance().getSpaceCount()) > 0) {
+            Parent root = FXMLLoader.load(getClass().getResource("OpenTicketView.fxml"));
+            Scene openTicketScene = new Scene(root);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setTitle("Open Ticket");
+            window.setResizable(false);
+            window.setScene(openTicketScene);
+            window.show();
+        }
     }
 
     public void retrieveTicketBtn(ActionEvent event) throws IOException {
