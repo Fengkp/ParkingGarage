@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ParkingGarage.jar" size="42475" download="eager" />
+    <jar href="ParkingGarage.jar" size="44423" download="eager" />
   </resources>
   <jfx:javafx-desc  width="600" height="400" main-class="garage.MainApp"  name="ParkingGarage" />
   <update check="background"/>
